@@ -1,0 +1,28 @@
+{
+    "name": "base-bailey-mysql",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "pre-copy": "cd .. && yarn run copy.lib base-baileys-mysql",
+        "start": "node app.js"
+    },
+    "keywords": [],
+    "dependencies": {
+        "@adiwajshing/baileys": "4.4.0",
+        "@bot-whatsapp/bot": "^0.1.25",
+        "@bot-whatsapp/cli": "^0.1.25",
+        "@bot-whatsapp/contexts": "^0.0.23-alpha.0",
+        "@bot-whatsapp/database": "^0.1.25",
+        "@bot-whatsapp/portal": "latest",
+        "@bot-whatsapp/provider": "^0.1.25",
+        "@google-cloud/dialogflow": "^5.5.0",
+        "google-spreadsheet": "^3.3.0",
+        "lsof": "^0.1.0",
+        "mime-types": "2.1.35",
+        "mysql2": "^2.3.3",
+        "wa-sticker-formatter": "4.3.2"
+    },
+    "author": "",
+    "license": "ISC"
+}
