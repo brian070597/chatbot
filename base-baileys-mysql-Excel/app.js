@@ -19,11 +19,7 @@ const MockAdapter = require('@bot-whatsapp/database/mock');
 
 
 
-/*                       Para añadir o eliminar alguna pregunta sigue los siguientes pasos:
-1) ➡️ Crea el addAnswer
-2) ➡️ Crea la variable del STATUS
-3) ➡️ Añade el nombre de la columna de Sheets junto con su variable
-*/
+
 
 let STATUS = {}
 
@@ -50,12 +46,6 @@ const flowConsultar = addKeyword('')
 /////////////////////       ESTA FUNCION CONSULTA LOS DATOS DE UNA FILA !SEGÚN EL TELÉFONO!    /////////////////////////
 
 
-
-
-
-
-
-
 async function consultarDatos(consulta) {
     console.log('Entra a consultarDatos')
     await doc.useServiceAccountAuth({
@@ -63,9 +53,7 @@ async function consultarDatos(consulta) {
         private_key: CREDENTIALS.private_key
     });
     await doc.loadInfo();
-    let sheet = doc.sheetsByTitle['Hoja 1'];                        // AQUÍ DEBES PONER EL NOMBRE DE TU HOJA
-
-
+    let sheet = doc.sheetsByTitle['Consultas'];                        // AQUÍ DEBES PONER EL NOMBRE DE TU HOJA
 
     consultados = [];
 
@@ -75,14 +63,11 @@ async function consultarDatos(consulta) {
     let rows = await sheet.getRows();
     for (let index = 0; index < rows.length; index++) {
         const row = rows[index];
-        if (row.Consulta.toLowerCase() === consulta.toLowerCase()) {
+        if (row.Consulta.toLowerCase() === consulta.toLowerCase() ||
+         row.Consulta.toLowerCase().indexOf(consulta.toLowerCase()) > 0) {
 
             consultados['Respuesta'] = row.Respuesta                      // AQUÍ LE PEDIMOS A LA FUNCION QUE CONSULTE LOS DATOS QUE QUEREMOS CONSULTAR EJEMPLO:
             
-
-
-
-
         }
 
     }
@@ -94,16 +79,9 @@ async function consultarDatos(consulta) {
 
 };
 
-
-
-
-
-
-
-
 const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowHola, flowConsultar])
+    const adapterFlow = createFlow([ flowConsultar])
     const adapterProvider = createProvider(BaileysProvider)
 
     createBot({
